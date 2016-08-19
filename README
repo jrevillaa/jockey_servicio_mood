@@ -1,9 +1,28 @@
 Web service template plugin for Moodle 2.X
 ------------------------------------------
 
-It is a template designed as a starting point for developing third party web services.
-It includes a simple Hello World example.
+ Local Suscribirse Módulo
+================
 
-To test:
-1- install the plugin in Moodle
-2- Read, setup and run /client/client.php
+Este proyecto tiene carácteristicas para ATX., una vez lo descargas debes instalarlo en {moodle}/local/.
+Debes renombrar la carpeta con wsjockey.
+Luego recién instalarlo.
+
+
+Notas de Compatibilidad
+===================
+
+Tener en cuenta:
+- La página donde se listan los atx_suscript deben ser maquetadas pues es una tabla y normalmente los front olvidan maquetar tablas.
+- Debes tener en cuenta también que debes llenar todos los datos.
+ 
+
+Diseño
+======
+
+Todo el módulo fue hecho por un backend... ya te resumí todo.
+
+License
+=======
+
+Esta librería esta bajo [MIT license](LICENSE).
