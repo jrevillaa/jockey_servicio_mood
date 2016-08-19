@@ -6,7 +6,7 @@ require_once('./curl.php');
 
 	//id = 58
 
-	//$datap = array('user' => array('userid' => 58));
+
     $us = new stdClass();
     $us->id = 76;
     $us->firstname = 'Jair Edson';
