@@ -91,9 +91,9 @@ class local_wsjockey_external extends external_api {
         $output[] = $tmpp;
     }
 
-    echo "<pre>";
+    /*echo "<pre>";
     print_r($output);
-    echo "</pre>";
+    echo "</pre>";*/
 
         return $output;
     }
