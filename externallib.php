@@ -57,7 +57,7 @@ class local_wsjockey_external extends external_api {
         require_once($CFG->dirroot . "/user/lib.php");
         //iteramos los parametros y reemplazamos por los ID
   
-        //$params = self::validate_parameters(self::get_users_by_id_parameters(), array('user' => $userids));
+        $params = self::validate_parameters(self::get_users_by_id_parameters(), array('user' => $userids));
 
 
         $courses = enrol_get_users_courses($userids['userid']);
@@ -412,7 +412,7 @@ class local_wsjockey_external extends external_api {
 
         foreach ($params['users'] as $user) {
 
-            $tmpUser = $DB->get_record('user',  array('idnumber' => $user['idnumber']));
+            $tmpUser = $DB->get_record('user',  array('username' => $user['username']));
 
             if(!is_object($tmpUser)){
                 throw new invalid_parameter_exception('Usuario no existe: '.$user['username']);

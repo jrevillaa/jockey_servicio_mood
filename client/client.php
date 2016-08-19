@@ -3,22 +3,18 @@
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . '/config.php');
 //require_once('./curl.php');
         global $CFG, $DB;
-/*
-	$item = new stdClass();
-	$item->fullname = 'uXYOu86etsbYkeUp8XTT';
-	$item->shortname = '1000004';
-	$item->idnumber_course = '32';
-	$item->idnumber_category = 'cat3';
 
-	$data = array($item);
+	//id = 58
+
+	$data = array('user' => array('userid' => 58));
 
 
 	$curl = new curl;
 
-    $token = "46d591f0365ae9eef0b77cff1c3ef4a3";
+    $token = "25c25eb3f8d677e190ab007d620a2f50";
     $domainname = $CFG->wwwroot;
 
-    $functionname = 'local_wscibertec_create_course';
+    $functionname = 'local_wsjockey_get_categories_courses';
 
     $serverurl = $domainname . '/webservice/rest/server.php'. '?wstoken=' . $token.'&wsfunction='.$functionname;
     //$data = array('optional'=>'1');
@@ -29,7 +25,7 @@ require_once(dirname(dirname(dirname(dirname(__FILE__)))) . '/config.php');
 
     echo "<pre>";
     print_r(json_decode($resp));
-    echo "</pre>";*/
+    echo "</pre>";
 /*
 
     $cats = $DB->get_records('course_categories',array('parent' => 0));
@@ -48,7 +44,7 @@ require_once(dirname(dirname(dirname(dirname(__FILE__)))) . '/config.php');
 
     }*/
 
-
+/*
     $courses = enrol_get_users_courses(234);
 
     $cateogires = array();
@@ -81,4 +77,4 @@ require_once(dirname(dirname(dirname(dirname(__FILE__)))) . '/config.php');
         
         echo "<pre>";
         print_r($output);
-        echo "</pre>";
+        echo "</pre>";*/
