@@ -224,10 +224,6 @@ class local_wsjockey_external extends external_api {
         $userids = array();
         foreach ($params['users'] as $user) {
             // Make sure that the username doesn't already exist.
-            if ($DB->record_exists('user', array('idnumber' => $user['idnumber'], 'mnethostid' => $CFG->mnet_localhost_id))) {
-                //throw new invalid_parameter_exception('Username already exists: '.$user['username']);
-                $userids[] = array('id' => 0, 'username' => $user['username']);
-            }else{
                 // Make sure auth is valid.
                 if (empty($availableauths[$user['auth']])) {
                     throw new invalid_parameter_exception('Invalid authentication type: '.$user['auth']);
@@ -282,7 +278,7 @@ class local_wsjockey_external extends external_api {
                 }
                 //var_dump(array('id' => $user['id'], 'username' => $user['username']));
                 $userids[] = array('id' => $user['id'], 'username' => $user['username']);
-            }
+            
 
         }
 
