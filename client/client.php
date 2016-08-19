@@ -8,17 +8,25 @@ require_once('./curl.php');
 
 	//$datap = array('user' => array('userid' => 58));
 
+    $us->id = 76;
+    $us->username = $username;
+    $us->password = $password;
+    $us->firstname = isset($datos->NOMBRE)? $datos->NOMBRE : 'NULL';
+    $us->lastname = isset($datos->APELLIDO_PATERNO)? $datos->APELLIDO_PATERNO : 'NULL';
+    $us->email = $username.'@test.test';
+    $us->auth = 'drupalservices';
+
 
 	$curl = new curl;
 
     $token = "648734155c457b0607e298959363c7c9";
     $domainname = $CFG->wwwroot;
 
-    $functionname = 'local_wsjockey_get_categories_courses';
+    $functionname = 'local_wsjockey_update_users';
 
     $serverurl = $domainname . '/webservice/rest/server.php'. '?wstoken=' . $token.'&wsfunction='.$functionname;
-    $data = array('userid'=>58);
-    $post = array('user' => $data);
+    $data[] = $us;
+    $post = array('users' => $data);
     $format = 'json';
     $format = ($format == 'json')?'&moodlewsrestformat=' . $format:'';
     $resp = $curl->post($serverurl.$format, $post);
