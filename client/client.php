@@ -1,7 +1,7 @@
 <?php
 
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . '/config.php');
-//require_once('./curl.php');
+require_once('./curl.php');
         global $CFG, $DB;
 
 	//id = 58
