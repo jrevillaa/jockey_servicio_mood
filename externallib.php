@@ -53,14 +53,10 @@ class local_wsjockey_external extends external_api {
      * @since Moodle 2.2
      */
     public static function get_users_by_id($userids) {
-        global $CFG, $USER, $DB;
+        global $CFG, $USER, $DB, $OUTPUT;
         require_once($CFG->dirroot . "/user/lib.php");
 
-
-        global $OUTPUT, $DB, $CFG;
-
-
-        
+      
     
 
         //iteramos los parametros y reemplazamos por los ID
