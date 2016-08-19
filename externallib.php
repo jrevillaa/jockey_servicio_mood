@@ -35,7 +35,7 @@ class local_wsjockey_external extends external_api {
                 array(
             'user' => new external_single_structure(
                         array(
-                            'userid' => new external_value(PARAM_TEXT, 'array de los ids categorias'),
+                            'username' => new external_value(PARAM_TEXT, 'array de los ids categorias'),
                               )
                         )
                     )
@@ -59,8 +59,11 @@ class local_wsjockey_external extends external_api {
   
         $params = self::validate_parameters(self::get_users_by_id_parameters(), array('user' => $userids));
 
-
-        $courses = enrol_get_users_courses($userids['userid']);
+        $usertmp = $DB->get_record('user',  array('username' => $userids['username']));
+        if(!is_object($usertmp)){
+            throw new moodle_exception('Error, no existe el username', 'wsjockey');
+        }
+        $courses = enrol_get_users_courses($usertmp->id);
 
     $cateogires = array();
     foreach($courses as $course){

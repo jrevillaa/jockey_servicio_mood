@@ -9,10 +9,10 @@ require_once('./curl.php');
 	//$datap = array('user' => array('userid' => 58));
     $us = new stdClass();
     $us->id = 76;
-    $us->username = $username;
-    $us->password = $password;
-    $us->firstname = isset($datos->NOMBRE)? $datos->NOMBRE : 'NULL';
-    $us->lastname = isset($datos->APELLIDO_PATERNO)? $datos->APELLIDO_PATERNO : 'NULL';
+    $us->firstname = 'Jair Edson';
+    $us->lastname = 'Revilla arroyo';
+    $us->username = 'consultor';
+    $us->password = '123456.C';
     $us->email = $username.'@test.test';
     $us->auth = 'drupalservices';
 
