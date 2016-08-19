@@ -55,6 +55,14 @@ class local_wsjockey_external extends external_api {
     public static function get_users_by_id($userids) {
         global $CFG, $USER, $DB;
         require_once($CFG->dirroot . "/user/lib.php");
+
+
+        global $OUTPUT, $DB, $CFG;
+
+
+        
+    
+
         //iteramos los parametros y reemplazamos por los ID
   
         $params = self::validate_parameters(self::get_users_by_id_parameters(), array('user' => $userids));
@@ -82,6 +90,28 @@ class local_wsjockey_external extends external_api {
         unset($course->ctxlevel);
         unset($course->ctxinstance);
         $course->path = $CFG->wwwroot . '/course/view.php?id=' . $course->id;
+
+        $sql = " SELECT ".
+            " f.contextid,".
+            " f.component,f.filearea, f.filepath,".
+            " f.filename, f.mimetype, c.instanceid".
+            " FROM {files} f ".
+            " INNER JOIN {context} c on f.contextid = c.id ".
+            " where f.mimetype LIKE 'image%' ".
+            " and f.component='course'".
+            " AND f.filearea = 'overviewfiles'".
+            " AND c.instanceid = " . $course->id;
+
+        $image = $DB->get_record_sql($sql);
+
+        if(is_object($image)){
+            $uri = file_encode_url("$CFG->wwwroot/pluginfile.php",
+                '/'. $image->contextid. '/'. $image->component. '/'.
+                $image->filearea. $image->filepath. $image->filename, false);
+        }else{
+            $uri = $OUTPUT->pix_url('default-course', 'theme');
+        }
+        $course->imagen = $uri;
 
         $cateogires[$root_category->name][] = $course;
 
@@ -434,13 +464,13 @@ class local_wsjockey_external extends external_api {
 
         foreach ($params['users'] as $user) {
 
-            /*$tmpUser = $DB->get_record('user',  array('username' => $user['username']));
+            $tmpUser = $DB->get_record('user',  array('username' => $user['username']));
 
             if(!is_object($tmpUser)){
                 throw new invalid_parameter_exception('Usuario no existe: '.$user['username']);
             }
 
-            $user = $tmpUser;*/
+            $user = $tmpUser;
 
             user_update_user($user, true, false);
             // Update user custom fields.
