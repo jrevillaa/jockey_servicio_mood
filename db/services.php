@@ -22,7 +22,7 @@
  */
 // We defined the web service functions to install.
 $functions = array(
-    'local_wsjockey_get_users_by_id' => array(
+    'local_wsjockey_get_categories_courses' => array(
         'classname' => 'local_wsjockey_external',
         'methodname' => 'get_users_by_id',
         'classpath' => 'local/wsjockey/externallib.php',        
@@ -52,7 +52,10 @@ $functions = array(
 $services = array(
     'Jockey Web Services' => array(
         'functions' => array(
-            'local_wsjockey_get_users_by_id'),
+            'local_wsjockey_get_categories_courses',
+            'local_wsjockey_create_users',
+            'local_wsjockey_update_users',
+            ),
         'restrictedusers' => 0,
         'enabled' => 1,
     )

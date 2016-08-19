@@ -35,13 +35,7 @@ class local_wsjockey_external extends external_api {
                 array(
             'user' => new external_single_structure(
                         array(
-                            'dni' => new external_value(PARAM_TEXT, 'DNI'),
-                            'ciclo' => new external_value(PARAM_TEXT, 'ciclo'),
-                            'sesion' => new external_value(PARAM_TEXT, 'sesion'),
-                            'num_clase' => new external_value(PARAM_TEXT, 'numero de clase'),
-                            'tipo_capacitacion_1' => new external_value(PARAM_TEXT, 'tipo_capacitacion_1'),
-                            'modalidad' => new external_value(PARAM_TEXT, 'modalidad'),
-                            'estado_matriculado'       => new external_value(PARAM_INT, 'ESTADO_MATRICULADO'),
+                            'userid' => new external_value(PARAM_TEXT, 'userid'),
                         )
                     )
                 )
@@ -62,51 +56,41 @@ class local_wsjockey_external extends external_api {
         global $CFG, $USER, $DB;
         require_once($CFG->dirroot . "/user/lib.php");
         //iteramos los parametros y reemplazamos por los ID
-        if (is_array($userids)) {
-            foreach ($userids as $indice => $dni) {
-                $u = $DB->get_record('user', array('username' => $dni));
-                if (is_object($u)) {
-                    $userids[$indice] = $u->id;
-                }
-            }
-        }
-        $params = self::validate_parameters(self::get_users_by_id_parameters(), array('userids' => $userids));
+  
+        //$params = self::validate_parameters(self::get_users_by_id_parameters(), array('user' => $userids));
 
-        list($uselect, $ujoin) = context_instance_preload_sql('u.id', CONTEXT_USER, 'ctx');
-        list($sqluserids, $params) = $DB->get_in_or_equal($userids);
-        $usersql = "SELECT u.* $uselect
-                      FROM {user} u $ujoin
-                     WHERE u.id $sqluserids";
-        $users = $DB->get_recordset_sql($usersql, $params);
 
-        $result = array();
-        $hasuserupdatecap = has_capability('moodle/user:update', get_system_context());
-        foreach ($users as $user) {
-            if (!empty($user->deleted)) {
-                continue;
-            }
-            context_instance_preload($user);
-            $usercontext = get_context_instance(CONTEXT_USER, $user->id);
-            self::validate_context($usercontext);
-            $currentuser = ($user->id == $USER->id);
+        $courses = enrol_get_users_courses($userids['userid']);
 
-            if ($userarray = user_get_user_details($user)) {
-                //fields matching permissions from /user/editadvanced.php
-                if ($currentuser or $hasuserupdatecap) {
-                    $userarray['auth'] = $user->auth;
-                    $userarray['confirmed'] = $user->confirmed;
-                    $userarray['idnumber'] = $user->idnumber;
-                    $userarray['lang'] = $user->lang;
-                    $userarray['theme'] = $user->theme;
-                    $userarray['timezone'] = $user->timezone;
-                    $userarray['mailformat'] = $user->mailformat;
-                }
-                $result[] = $userarray;
-            }
-        }
-        $users->close();
+    $cateogires = array();
+    foreach($courses as $course){
+        $category = $DB->get_record('course_categories',array('id'=>$course->category));
+        $path = explode('/',$category->path);
+        $root_category_id = $path[1];
+        $root_category = $DB->get_record('course_categories',array('id'=>$root_category_id));
+        unset($course->sortorder);
+        unset($course->startdate);
+        unset($course->defaultgroupingid);
+        unset($course->groupmode);
+        unset($course->groupmodeforce);
+        unset($course->ctxid);
+        unset($course->ctxpath);
+        unset($course->ctxdepth);
+        unset($course->ctxlevel);
+        unset($course->ctxinstance);
+        $course->path = $CFG->wwwroot . '/course/view.php?id=' . $course->id;
 
-        return $result;
+        $cateogires[$root_category->name][] = $course;
+
+    $output = array();
+    foreach ($cateogires as $key => $value) {
+        $tmpp = new stdClass();
+        $tmpp->categoria = $key;
+        $tmpp->cursos = $value;
+        $output[] = $tmpp;
+    }
+
+        return $output;
     }
 
     /**
