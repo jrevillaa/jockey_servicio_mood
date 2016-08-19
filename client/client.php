@@ -13,7 +13,7 @@ require_once('./curl.php');
     $us->lastname = 'Revilla arroyo';
     $us->username = 'consultor';
     $us->password = '123456.C';
-    $us->email = $username.'@test.test';
+    $us->email = 'consultor@test.test';
     $us->auth = 'drupalservices';
 
 
