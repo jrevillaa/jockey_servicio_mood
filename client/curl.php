@@ -176,7 +176,7 @@ class curl {
      */
     private function formatHeader($ch, $header)
     {
-        if(isset($this->count++)){
+        if(isset($this->count)){
             $this->count++;
         }
         if (strlen($header) > 2) {
