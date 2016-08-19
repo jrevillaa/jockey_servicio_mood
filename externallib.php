@@ -410,6 +410,8 @@ class local_wsjockey_external extends external_api {
 
         $transaction = $DB->start_delegated_transaction();
 
+        $output = array();
+
         foreach ($params['users'] as $user) {
 
             $tmpUser = $DB->get_record('user',  array('username' => $user['username']));
@@ -442,11 +444,12 @@ class local_wsjockey_external extends external_api {
                     set_user_preference($preference['type'], $preference['value'], $user['id']);
                 }
             }
+            $output[] = array( 'id'=> $user['id'], 'username' => $user['username']);
         }
 
         $transaction->allow_commit();
 
-        return null;
+        return $output;
     }
 
     /**
@@ -456,7 +459,14 @@ class local_wsjockey_external extends external_api {
      * @since Moodle 2.2
      */
     public static function update_users_returns() {
-        return null;
+        return new external_multiple_structure(
+            new external_single_structure(
+                array(
+                    'id'       => new external_value(PARAM_INT, 'user id'),
+                    'username' => new external_value(PARAM_USERNAME, 'user name'),
+                )
+            )
+        );
     }
 
    
