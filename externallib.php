@@ -152,6 +152,7 @@ class local_wsjockey_external extends external_api {
                                         'idnumber' => new external_value(PARAM_TEXT, 'The value of the preference'),
                                         'visible' => new external_value(PARAM_INT, 'The value of the preference'),
                                         'path' => new external_value(PARAM_TEXT, 'The value of the preference'),
+                                        'imagen' => new external_value(PARAM_TEXT, 'The value of the preference'),
                                     )
                                 ), 'lista de cursos', VALUE_OPTIONAL),
                 )
