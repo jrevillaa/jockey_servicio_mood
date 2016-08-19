@@ -11,7 +11,7 @@ require_once('./curl.php');
 
 	$curl = new curl;
 
-    $token = "25c25eb3f8d677e190ab007d620a2f50";
+    $token = "648734155c457b0607e298959363c7c9";
     $domainname = $CFG->wwwroot;
 
     $functionname = 'local_wsjockey_get_categories_courses';
