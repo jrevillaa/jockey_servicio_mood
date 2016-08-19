@@ -77,9 +77,10 @@ require_once($CFG->dirroot."/user/lib.php");
         $image = $DB->get_record_sql($sql);
 
         if(is_object($image)){
-            $uri = file_encode_url("$CFG->wwwroot/pluginfile.php",
+            $uri = "$CFG->wwwroot/pluginfile.php" . '/' . $image->contextid . '/' . $image->component . '/' . $image->filearea . $image->filepath . $image->filename;
+            /*$uri = file_encode_url("$CFG->wwwroot/pluginfile.php",
                 '/'. $image->contextid. '/'. $image->component. '/'.
-                $image->filearea. $image->filepath. $image->filename, false);
+                $image->filearea. $image->filepath. $image->filename, false);*/
         }else{
             $uri = $OUTPUT->pix_url('default-course', 'theme');
         }
