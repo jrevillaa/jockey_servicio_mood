@@ -3,10 +3,12 @@
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . '/config.php');
 require_once('./curl.php');
         global $CFG, $DB;
+require_once($CFG->dirroot."/user/lib.php");
+        require_once($CFG->dirroot."/user/profile/lib.php"); 
 
 	//id = 58
 
-
+/*
     $us = new stdClass();
     $us->id = 76;
     $us->firstname = 'Jair Edson';
@@ -33,56 +35,51 @@ require_once('./curl.php');
 
     echo "<pre>";
     print_r(json_decode($resp));
-    echo "</pre>";
-/*
-
-    $cats = $DB->get_records('course_categories',array('parent' => 0));
-
-    $cats_hijos = $cats
-
-    foreach($cats as $value){
-
-        $DB->get_records('courses',  array('categoryid' => $value->id));
-        echo "<pre>";
-        print_r($value);
-        echo "</pre>";
-
-        $catis = $DB->get_records('course_categories',  array('parent' => $value->parent));
+    echo "</pre>";*/
 
 
-    }*/
 
-/*
-    $courses = enrol_get_users_courses(234);
 
-    $cateogires = array();
-    foreach($courses as $course){
-        $category = $DB->get_record('course_categories',array('id'=>$course->category));
-        $path = explode('/',$category->path);
-        $root_category_id = $path[1];
-        $root_category = $DB->get_record('course_categories',array('id'=>$root_category_id));
-        unset($course->sortorder);
-        unset($course->startdate);
-        unset($course->defaultgroupingid);
-        unset($course->groupmode);
-        unset($course->groupmodeforce);
-        unset($course->ctxid);
-        unset($course->ctxpath);
-        unset($course->ctxdepth);
-        unset($course->ctxlevel);
-        unset($course->ctxinstance);
-        $course->path = $CFG->wwwroot . '/course/view.php?id=' . $course->id;
 
-        $cateogires[$root_category->name][] = $course;
+        $output = array();
 
-    $output = array();
-    foreach ($cateogires as $key => $value) {
-        $tmpp = new stdClass();
-        $tmpp->categoria = $key;
-        $tmpp->cursos = $value;
-        $output[] = $tmpp;
-    }
-        
-        echo "<pre>";
-        print_r($output);
-        echo "</pre>";*/
+
+        $user = array();
+        $user['username'] = 'consultor';
+
+            $tmpUser = $DB->get_record('user',  array('username' => $user['username']));
+
+            if(!is_object($tmpUser)){
+                throw new invalid_parameter_exception('Usuario no existe: '.$user['username']);
+            }
+
+            $user = $tmpUser;
+
+
+            user_update_user($user, true, false);
+            // Update user custom fields.
+            if (!empty($user['customfields'])) {
+
+                foreach ($user['customfields'] as $customfield) {
+                    // Profile_save_data() saves profile file it's expecting a user with the correct id,
+                    // and custom field to be named profile_field_"shortname".
+                    $user["profile_field_".$customfield['type']] = $customfield['value'];
+                }
+                profile_save_data((object) $user);
+            }
+
+            // Trigger event.
+            \core\event\user_updated::create_from_userid($user['id'])->trigger();
+
+            // Preferences.
+            if (!empty($user['preferences'])) {
+                foreach ($user['preferences'] as $preference) {
+                    set_user_preference($preference['type'], $preference['value'], $user['id']);
+                }
+            }
+            $output[] = array( 'id'=> $user['id'], 'username' => $user['username']);
+        }
+
+        //$transaction->allow_commit();
+
+        return $output;
