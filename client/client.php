@@ -14,7 +14,7 @@ require_once('./curl.php');
     $us->username = 'consultor';
     $us->password = '123456.C';
     $us->email = 'consultor@test.test';
-    $us->auth = 'drupalservices';
+    $us->auth = 'manual';
 
 
 	$curl = new curl;
