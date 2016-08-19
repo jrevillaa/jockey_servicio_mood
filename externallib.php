@@ -327,7 +327,7 @@ class local_wsjockey_external extends external_api {
 
 
 
-     /**
+    /**
      * Returns description of method parameters
      *
      * @return external_function_parameters
@@ -340,9 +340,10 @@ class local_wsjockey_external extends external_api {
                     new external_single_structure(
                         array(
                             'id' =>
-                                new external_value(core_user::get_property_type('id'), 'ID of the user',VALUE_OPTIONAL, '', NULL_NOT_ALLOWED),
+                                new external_value(core_user::get_property_type('id'), 'ID of the user'),
                             'username' =>
-                                new external_value(core_user::get_property_type('username'), 'Username policy is defined in Moodle security config.'),
+                                new external_value(core_user::get_property_type('username'), 'Username policy is defined in Moodle security config.',
+                                    VALUE_OPTIONAL, '', NULL_NOT_ALLOWED),
                             'password' =>
                                 new external_value(core_user::get_property_type('password'), 'Plain text password consisting of any characters', VALUE_OPTIONAL,
                                     '', NULL_NOT_ALLOWED),
@@ -431,18 +432,15 @@ class local_wsjockey_external extends external_api {
 
         $transaction = $DB->start_delegated_transaction();
 
-        $output = array();
-
         foreach ($params['users'] as $user) {
 
-            /*$tmpUser = $DB->get_record('user',  array('username' => $user['username']));
+            $tmpUser = $DB->get_record('user',  array('username' => $user['username']));
 
             if(!is_object($tmpUser)){
                 throw new invalid_parameter_exception('Usuario no existe: '.$user['username']);
             }
 
-            $user = $tmpUser;*/
-
+            $user = $tmpUser;
 
             user_update_user($user, true, false);
             // Update user custom fields.
@@ -465,12 +463,11 @@ class local_wsjockey_external extends external_api {
                     set_user_preference($preference['type'], $preference['value'], $user['id']);
                 }
             }
-            $output[] = array( 'id'=> $user['id'], 'username' => $user['username']);
         }
 
         $transaction->allow_commit();
 
-        return $output;
+        return null;
     }
 
     /**
@@ -480,14 +477,7 @@ class local_wsjockey_external extends external_api {
      * @since Moodle 2.2
      */
     public static function update_users_returns() {
-        return new external_multiple_structure(
-            new external_single_structure(
-                array(
-                    'id'       => new external_value(PARAM_INT, 'user id'),
-                    'username' => new external_value(PARAM_USERNAME, 'user name'),
-                )
-            )
-        );
+        return null;
     }
 
    
