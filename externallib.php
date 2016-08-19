@@ -93,7 +93,7 @@ class local_wsjockey_external extends external_api {
 
     echo "<pre>";
     print_r($output);
-    echo "</pre>";die();
+    echo "</pre>";
 
         return $output;
     }
