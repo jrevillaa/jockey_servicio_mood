@@ -8,7 +8,7 @@ require_once($CFG->dirroot."/user/lib.php");
 
 	//id = 58
 
-
+/*
     $us = new stdClass();
     $us->id = 73;
     $us->firstname = 'Jair Edson';
@@ -35,51 +35,5 @@ require_once($CFG->dirroot."/user/lib.php");
 
     echo "<pre>";
     print_r(json_decode($resp));
-    echo "</pre>";
+    echo "</pre>";*/
 
-
-
-
-
-       /* $output = array();
-
-
-        $user = array();
-        $user['username'] = 'consultor';
-
-            $tmpUser = $DB->get_record('user',  array('username' => $user['username']));
-
-            if(!is_object($tmpUser)){
-                throw new invalid_parameter_exception('Usuario no existe: '.$user['username']);
-            }
-
-            $user = $tmpUser;
-
-
-            user_update_user($user, true, false);
-            // Update user custom fields.
-            if (!empty($user['customfields'])) {
-
-                foreach ($user['customfields'] as $customfield) {
-                    // Profile_save_data() saves profile file it's expecting a user with the correct id,
-                    // and custom field to be named profile_field_"shortname".
-                    $user["profile_field_".$customfield['type']] = $customfield['value'];
-                }
-                profile_save_data((object) $user);
-            }
-
-            // Trigger event.
-            \core\event\user_updated::create_from_userid($user['id'])->trigger();
-
-            // Preferences.
-            if (!empty($user['preferences'])) {
-                foreach ($user['preferences'] as $preference) {
-                    set_user_preference($preference['type'], $preference['value'], $user['id']);
-                }
-            }
-            $output[] = array( 'id'=> $user['id'], 'username' => $user['username']);
-        }
-
-        //$transaction->allow_commit();
-
-        return $output;*/
