@@ -3,8 +3,6 @@
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . '/config.php');
 require_once('./curl.php');
         global $CFG, $DB, $OUTPUT;
-require_once($CFG->dirroot."/user/lib.php");
-        require_once($CFG->dirroot."/user/profile/lib.php"); 
 
 	//id = 58
 
@@ -27,8 +25,8 @@ require_once($CFG->dirroot."/user/lib.php");
     $functionname = 'local_wsjockey_update_users';
 
     $serverurl = $domainname . '/webservice/rest/server.php'. '?wstoken=' . $token.'&wsfunction='.$functionname;
-    $data[] = $us;
-    $post = array('users' => $data);
+    $data[] = 58;
+    $post = array('user' => $data);
     $format = 'json';
     $format = ($format == 'json')?'&moodlewsrestformat=' . $format:'';
     $resp = $curl->post($serverurl.$format, $post);
@@ -37,13 +35,12 @@ require_once($CFG->dirroot."/user/lib.php");
     print_r(json_decode($resp));
     echo "</pre>";*/
 
-    $userids = array('username' => 'Estudiante');
-
-        $usertmp = $DB->get_record('user',  array('username' => $userids['username']));
+/*$usertmp = $DB->get_record('user',  array('id' => 58));
         if(!is_object($usertmp)){
             throw new moodle_exception('Error, no existe el username', 'wsjockey');
-        }
-        $courses = enrol_get_users_courses($usertmp->id);
+        }*/
+        //$courses = enrol_get_users_courses($usertmp->id);
+        $courses = enrol_get_users_courses(226);
 
     $cateogires = array();
     foreach($courses as $course){
@@ -75,15 +72,14 @@ require_once($CFG->dirroot."/user/lib.php");
             " AND c.instanceid = " . $course->id;
 
         $image = $DB->get_record_sql($sql);
-
-        //if(is_object($image)){
-            //$uri = "$CFG->wwwroot/pluginfile.php" . '/' . $image->contextid . '/' . $image->component . '/' . $image->filearea . $image->filepath . $image->filename;
-            /*$uri = file_encode_url("$CFG->wwwroot/pluginfile.php",
-                '/'. $image->contextid. '/'. $image->component. '/'.
-                $image->filearea. $image->filepath. $image->filename, false);*/
-        //}else{
-            $uri = $OUTPUT->pix_url('default-course', 'theme');
-        //}
+        //$uri = json_encode($image);
+        if(is_object($image)){
+            $uri = "$CFG->wwwroot/pluginfile.php" .
+                                    '/'. $image->contextid . '/' . $image->component . 
+                                    '/'. $image->filearea . $image->filepath . $image->filename;
+       }else{
+            $uri = '';
+        }
         $course->imagen = $uri;
 
         $cateogires[$root_category->name][] = $course;
@@ -96,3 +92,7 @@ require_once($CFG->dirroot."/user/lib.php");
         $tmpp->cursos = $value;
         $output[] = $tmpp;
     }
+
+    echo "<pre>";
+    print_r($output);
+    echo "</pre>";
