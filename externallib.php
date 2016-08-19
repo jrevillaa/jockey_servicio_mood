@@ -105,12 +105,25 @@ class local_wsjockey_external extends external_api {
      * @since Moodle 2.2
      */
     public static function get_users_by_id_returns() {
-        return new external_single_structure(
+        return new external_multiple_structure(
+            new external_single_structure(
                 array(
-                    'dni' => new external_value(PARAM_TEXT, 'DNI'),
-                    'estado_matriculado'       => new external_value(PARAM_INT, 'ESTADO_MATRICULADO'),
+                    'categoria'       => new external_value(PARAM_TEXT, 'cateogria'),
+                    'cursos' => new external_multiple_structure(
+                                new external_single_structure(
+                                    array(
+                                        'id'  => new external_value(PARAM_INT, 'The name of the preference'),
+                                        'category' => new external_value(PARAM_INT, 'The value of the preference'),
+                                        'shortname' => new external_value(PARAM_TEXT, 'The value of the preference'),
+                                        'fullname' => new external_value(PARAM_TEXT, 'The value of the preference'),
+                                        'idnumber' => new external_value(PARAM_TEXT, 'The value of the preference'),
+                                        'visible' => new external_value(PARAM_INT, 'The value of the preference'),
+                                        'path' => new external_value(PARAM_TEXT, 'The value of the preference'),
+                                    )
+                                ), 'lista de cursos', VALUE_OPTIONAL),
                 )
-            );
+            )
+        );
     }
 
 
@@ -419,13 +432,13 @@ class local_wsjockey_external extends external_api {
 
         foreach ($params['users'] as $user) {
 
-            $tmpUser = $DB->get_record('user',  array('username' => $user['username']));
+            /*$tmpUser = $DB->get_record('user',  array('username' => $user['username']));
 
             if(!is_object($tmpUser)){
                 throw new invalid_parameter_exception('Usuario no existe: '.$user['username']);
             }
 
-            $user = $tmpUser;
+            $user = $tmpUser;*/
 
 
             user_update_user($user, true, false);
