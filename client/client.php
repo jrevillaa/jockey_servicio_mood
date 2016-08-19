@@ -8,9 +8,9 @@ require_once($CFG->dirroot."/user/lib.php");
 
 	//id = 58
 
-/*
+
     $us = new stdClass();
-    $us->id = 76;
+    $us->id = 73;
     $us->firstname = 'Jair Edson';
     $us->lastname = 'Revilla arroyo';
     $us->username = 'consultor';
@@ -35,13 +35,13 @@ require_once($CFG->dirroot."/user/lib.php");
 
     echo "<pre>";
     print_r(json_decode($resp));
-    echo "</pre>";*/
+    echo "</pre>";
 
 
 
 
 
-        $output = array();
+       /* $output = array();
 
 
         $user = array();
@@ -82,4 +82,4 @@ require_once($CFG->dirroot."/user/lib.php");
 
         //$transaction->allow_commit();
 
-        return $output;
+        return $output;*/
