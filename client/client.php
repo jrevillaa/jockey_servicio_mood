@@ -6,7 +6,7 @@ require_once('./curl.php');
 
 	//id = 58
 
-	$data = array('user' => array('userid' => 58));
+	//$datap = array('user' => array('userid' => 58));
 
 
 	$curl = new curl;
@@ -17,8 +17,8 @@ require_once('./curl.php');
     $functionname = 'local_wsjockey_get_categories_courses';
 
     $serverurl = $domainname . '/webservice/rest/server.php'. '?wstoken=' . $token.'&wsfunction='.$functionname;
-    //$data = array('optional'=>'1');
-    $post = array('courses' => $data);
+    $data = array('userid'=>58);
+    $post = array('user' => $data);
     $format = 'json';
     $format = ($format == 'json')?'&moodlewsrestformat=' . $format:'';
     $resp = $curl->post($serverurl.$format, $post);
