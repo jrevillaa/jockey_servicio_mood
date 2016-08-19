@@ -100,13 +100,13 @@ class local_wsjockey_external extends external_api {
 
         $image = $DB->get_record_sql($sql);
 
-        if(is_object($image)){
+        /*if(is_object($image)){
             $uri = file_encode_url("$CFG->wwwroot/pluginfile.php",
                 '/'. $image->contextid. '/'. $image->component. '/'.
                 $image->filearea. $image->filepath. $image->filename, false);
-        }else{
+       //}else{*/
             $uri = $OUTPUT->pix_url('default-course', 'theme');
-        }
+        //}
         $course->imagen = $uri;
 
         $cateogires[$root_category->name][] = $course;
