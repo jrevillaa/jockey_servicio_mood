@@ -113,8 +113,11 @@ class local_wsjockey_external extends external_api {
 
     $output = array();
     }
+
+    $conta_ovejas = 0;
     foreach ($cateogires as $key => $value) {
         $tmpp = new stdClass();
+        $tmpp->numero = $conta_ovejas++;
         $tmpp->categoria = $key;
         $tmpp->cursos = $value;
         $output[] = $tmpp;
