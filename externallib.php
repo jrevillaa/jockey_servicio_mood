@@ -461,13 +461,13 @@ class local_wsjockey_external extends external_api {
 
         foreach ($params['users'] as $user) {
 
-            $tmpUser = $DB->get_record('user',  array('username' => $user['username']));
+            /*$tmpUser = $DB->get_record('user',  array('username' => $user['username']));
 
             if(!is_object($tmpUser)){
                 throw new invalid_parameter_exception('Usuario no existe: '.$user['username']);
             }
 
-            $user = $tmpUser;
+            $user = $tmpUser;*/
 
             user_update_user($user, true, false);
             // Update user custom fields.
