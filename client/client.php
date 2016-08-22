@@ -23,7 +23,7 @@ require_once('./curl.php');
     $domainname = $CFG->wwwroot;
 
     $functionname = 'local_wsjockey_update_users';
-
+    $data = array();
     $serverurl = $domainname . '/webservice/rest/server.php'. '?wstoken=' . $token.'&wsfunction='.$functionname;
     $data[] = $us;
     $post = array('user' => $data);
