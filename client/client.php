@@ -26,7 +26,7 @@ require_once('./curl.php');
     $data = array();
     $serverurl = $domainname . '/webservice/rest/server.php'. '?wstoken=' . $token.'&wsfunction='.$functionname;
     $data[] = $us;
-    $post = array('user' => $data);
+    $post = array('users' => $data);
     $format = 'json';
     $format = ($format == 'json')?'&moodlewsrestformat=' . $format:'';
     $resp = $curl->post($serverurl.$format, $post);

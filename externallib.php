@@ -366,8 +366,8 @@ class local_wsjockey_external extends external_api {
                 'users' => new external_multiple_structure(
                     new external_single_structure(
                         array(
-                            'id' =>
-                                new external_value(core_user::get_property_type('id'), 'ID of the user',VALUE_OPTIONAL, '', NULL_NOT_ALLOWED),
+                            /*'id' =>
+                                new external_value(core_user::get_property_type('id'), 'ID of the user',VALUE_OPTIONAL),*/
                             'username' =>
                                 new external_value(core_user::get_property_type('username'), 'Username policy is defined in Moodle security config.',
                                     VALUE_OPTIONAL, '', NULL_NOT_ALLOWED),
