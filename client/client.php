@@ -8,8 +8,8 @@ require_once('./curl.php');
 
 
     $us = new stdClass();
-    $us->id = 73;
-    $us->firstname = 'Jair Edson';
+    //$us->id = 73;
+    $us->firstname = 'Jair';
     $us->lastname = 'Revilla arroyo';
     $us->username = 'consultor';
     $us->password = '123456.C';

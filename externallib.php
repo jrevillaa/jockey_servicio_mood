@@ -366,8 +366,8 @@ class local_wsjockey_external extends external_api {
                 'users' => new external_multiple_structure(
                     new external_single_structure(
                         array(
-                            'id' =>
-                                new external_value(core_user::get_property_type('id'), 'ID of the user'),
+                            /*'id' =>
+                                new external_value(core_user::get_property_type('id'), 'ID of the user'),*/
                             'username' =>
                                 new external_value(core_user::get_property_type('username'), 'Username policy is defined in Moodle security config.',
                                     VALUE_OPTIONAL, '', NULL_NOT_ALLOWED),
@@ -462,13 +462,13 @@ class local_wsjockey_external extends external_api {
         $userids = array();
         foreach ($params['users'] as $user) {
 
-            /*$tmpUser = $DB->get_record('user',  array('username' => $user['username']));
+            $tmpUser = $DB->get_record('user',  array('username' => $user['username']));
 
             if(!is_object($tmpUser)){
                 throw new invalid_parameter_exception('Usuario no existe: '.$user['username']);
             }
 
-            $user = $tmpUser;*/
+            $user['id'] = $tmpUser->id;
 
             user_update_user($user, true, false);
             // Update user custom fields.
