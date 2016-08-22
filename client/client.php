@@ -8,7 +8,7 @@ require_once('./curl.php');
 
 
     $us = new stdClass();
-    $us->id = 73;
+    //$us->id = 73;
     $us->firstname = 'Jair Edson';
     $us->lastname = 'Revilla arroyo';
     $us->username = 'consultor';
