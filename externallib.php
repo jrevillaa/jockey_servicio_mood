@@ -494,7 +494,7 @@ class local_wsjockey_external extends external_api {
 
         $transaction->allow_commit();
 
-        return 'COMPLETO!!!';
+        return null;
     }
 
     /**
@@ -504,7 +504,7 @@ class local_wsjockey_external extends external_api {
      * @since Moodle 2.2
      */
     public static function update_users_returns() {
-        return 'COMPLETO!!!';
+        return null;
     }
 
    
