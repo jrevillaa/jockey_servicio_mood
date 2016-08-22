@@ -459,7 +459,7 @@ class local_wsjockey_external extends external_api {
 
         $transaction = $DB->start_delegated_transaction();
 
-        $userids = array():
+        $userids = array();
 
         foreach ($params['users'] as $user) {
 

@@ -6,7 +6,7 @@ require_once('./curl.php');
 
 	//id = 58
 
-/*
+
     $us = new stdClass();
     $us->id = 73;
     $us->firstname = 'Jair Edson';
@@ -33,14 +33,14 @@ require_once('./curl.php');
 
     echo "<pre>";
     print_r(json_decode($resp));
-    echo "</pre>";*/
+    echo "</pre>";
 
 /*$usertmp = $DB->get_record('user',  array('id' => 58));
         if(!is_object($usertmp)){
             throw new moodle_exception('Error, no existe el username', 'wsjockey');
         }*/
         //$courses = enrol_get_users_courses($usertmp->id);
-        $courses = enrol_get_users_courses(226);
+       /* $courses = enrol_get_users_courses(226);
 
     $cateogires = array();
     foreach($courses as $course){
@@ -95,4 +95,4 @@ require_once('./curl.php');
 
     echo "<pre>";
     print_r($output);
-    echo "</pre>";
+    echo "</pre>";*/
