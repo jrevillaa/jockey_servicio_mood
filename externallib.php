@@ -494,7 +494,7 @@ class local_wsjockey_external extends external_api {
 
         $transaction->allow_commit();
 
-        return null;
+        return 'COMPLETO!!!';
     }
 
     /**
