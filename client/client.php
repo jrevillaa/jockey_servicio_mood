@@ -25,7 +25,7 @@ require_once('./curl.php');
     $functionname = 'local_wsjockey_update_users';
 
     $serverurl = $domainname . '/webservice/rest/server.php'. '?wstoken=' . $token.'&wsfunction='.$functionname;
-    $data[] = 58;
+    $data[] = $us;
     $post = array('user' => $data);
     $format = 'json';
     $format = ($format == 'json')?'&moodlewsrestformat=' . $format:'';
