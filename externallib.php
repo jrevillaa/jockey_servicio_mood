@@ -141,6 +141,7 @@ class local_wsjockey_external extends external_api {
         return new external_multiple_structure(
             new external_single_structure(
                 array(
+                    'numero'       => new external_value(PARAM_TEXT, 'numero'),
                     'categoria'       => new external_value(PARAM_TEXT, 'cateogria'),
                     'cursos' => new external_multiple_structure(
                                 new external_single_structure(
